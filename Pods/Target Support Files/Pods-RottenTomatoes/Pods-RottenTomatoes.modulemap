@@ -1,0 +1,6 @@
+framework module Pods_RottenTomatoes {
+  umbrella header "Pods-RottenTomatoes-umbrella.h"
+
+  export *
+  module * { export * }
+}
