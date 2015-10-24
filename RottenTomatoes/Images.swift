@@ -14,6 +14,10 @@ class Images {
     
     static var imageCache: [String: UIImage] = [:]
     
+    static func invalidAllImageCache() {
+        self.imageCache = [:]
+    }
+    
     static func downloadThumbnailImage(imageUrl: String!, uiImageView: UIImageView) {
         
         if let image = self.imageCache[imageUrl] {
