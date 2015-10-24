@@ -25,8 +25,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         super.viewDidLoad()
         
-//        let scrollView = UIScrollView()
-//        self.view.addSubview(scrollView)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -50,6 +48,12 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         let requestUrl = "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"
         self.downloadingMovieInfo = true
+        
+        let progressIndicatorView = UIProgressView(frame: CGRect(x: 0.0, y: 64 + 43.0, width: self.view.bounds.width, height: 10.0))
+        progressIndicatorView.tintColor = UIColor.blueColor()
+        self.view.addSubview(progressIndicatorView)
+        
+        
         Alamofire.request(.GET, requestUrl).responseJSON { response in
                 if response.response?.statusCode == 200 {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
@@ -129,7 +133,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MoviesCell", forIndexPath: indexPath) as! MoviesCollectionViewCell
         
         let movie = self.movies[indexPath.row]
-        
         
         Images.downloadThumbnailImage(movie.lowResImageUrl, uiImageView: cell.moviewImage)
     
