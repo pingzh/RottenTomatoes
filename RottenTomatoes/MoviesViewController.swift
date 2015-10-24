@@ -45,48 +45,40 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     func _getMoviesInfoFromRottenTomatoes() {
-        
         if self.downloadingMovieInfo {
            return
         }
-        
         let requestUrl = "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"
-        
         self.downloadingMovieInfo = true
         Alamofire.request(.GET, requestUrl).responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    
-                    
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                        var newMovieInfos: [Movie] = []
                         
+                        var newMovieInfos: [Movie] = []
                         if let json = response.result.value {
                             let moviesData = JSON(json)["movies"]
                             for (_, subJson): (String, JSON) in moviesData {
-                                let movie = Movie()
-                                
-                                //TODO change implementation here, not use variable, put them in constructor
-                                movie.title = subJson["title"].stringValue
-                                movie.runtime = subJson["runtime"].stringValue
-                                
                                 let ratings = subJson["ratings"]
-                                movie.audienceScore = ratings["audience_score"].stringValue
-                                movie.criticsScore = ratings["critics_rating"].stringValue
-                                
                                 let imageUrls = subJson["posters"]
-                                movie.lowResImageUrl = self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue)
-                                movie.highResImageUrl = self._originalImageUrl(imageUrls["original"].stringValue)
-                                
+                                let movie = Movie(
+                                    title: subJson["title"].stringValue,
+                                    runtime: subJson["runtime"].stringValue,
+                                    audienceScore: ratings["audience_score"].stringValue,
+                                    criticsScore: ratings["critics_rating"].stringValue,
+                                    year: subJson["year"].stringValue,
+                                    thumbnail: self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue),
+                                    original: self._originalImageUrl(imageUrls["original"].stringValue)
+                                )
                                 newMovieInfos.append(movie)
                             }
-                        }
-                        
-                        let lastItem = self.movies.count
-                        self.movies.appendContentsOf(newMovieInfos)
-                        let indexPaths = (lastItem..<self.movies.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+                            
+                            let lastItem = self.movies.count
+                            self.movies.appendContentsOf(newMovieInfos)
+                            let indexPaths = (lastItem..<self.movies.count).map { NSIndexPath(forItem: $0, inSection: 0) }
+                            
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+                            }
                         }
                     }
                 }
@@ -98,26 +90,17 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
 
-    func _thumbnailImageUrl(imageUrl: String) -> String {
-        return imageUrl
-    }
-    
-    func _originalImageUrl(imageUrl: String) -> String {
-        let range = imageUrl.rangeOfString(".*cloudfront.net/", options: NSStringCompareOptions.RegularExpressionSearch)
-        let originalImageUrl: String = imageUrl.stringByReplacingCharactersInRange(range!, withString: "https://content6.flixster.com/")
-        return originalImageUrl
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    //TODO ?? not working!
+//    TODO ?? not working!
     func scrollViewDidScroll(scrollView: UIScrollView) {
-//      if scrollView.contentOffset.y + collectionView.frame.size.height > scrollView.contentSize.height * 0.8 {
+     if scrollView.contentOffset.y + collectionView.frame.size.height > scrollView.contentSize.height * 0.8 {
             self._getMoviesInfoFromRottenTomatoes()
-//    }
+        }
     }
     
     /*
@@ -144,15 +127,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MoviesCell", forIndexPath: indexPath) as! MoviesCollectionViewCell
-    
+        
         let movie = self.movies[indexPath.row]
-        // Configure the cell
-        Alamofire.request(.GET, movie.lowResImageUrl).response() {
-            (_, _, data, _) in
-            
-            let image = UIImage(data: data!)
-            cell.moviewImage.image = image
-        }
+        
+        
+        Images.downloadThumbnailImage(movie.lowResImageUrl, uiImageView: cell.moviewImage)
     
         return cell
     }
@@ -187,6 +166,17 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     }
     */
+    
+    
+    func _thumbnailImageUrl(imageUrl: String) -> String {
+        return imageUrl
+    }
+    
+    func _originalImageUrl(imageUrl: String) -> String {
+        let range = imageUrl.rangeOfString(".*cloudfront.net/", options: NSStringCompareOptions.RegularExpressionSearch)
+        let originalImageUrl: String = imageUrl.stringByReplacingCharactersInRange(range!, withString: "https://content6.flixster.com/")
+        return originalImageUrl
+    }
     
     
     func _calcCellWidth(size: CGSize) -> CGFloat {
