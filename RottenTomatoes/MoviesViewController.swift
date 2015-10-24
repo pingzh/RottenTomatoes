@@ -19,10 +19,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     let cellHeight : CGFloat = 250
     var movies: [Movie] = []
+    var downloadingMovieInfo = false
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+//        let scrollView = UIScrollView()
+//        self.view.addSubview(scrollView)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -33,6 +37,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cellWidth = _calcCellWidth(self.view.frame.size)
         layout.itemSize = CGSizeMake(cellWidth, cellHeight)
         
+        
         self._getMoviesInfoFromRottenTomatoes()
     
     }
@@ -40,36 +45,55 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     func _getMoviesInfoFromRottenTomatoes() {
+        
+        if self.downloadingMovieInfo {
+           return
+        }
+        
         let requestUrl = "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"
+        
+        self.downloadingMovieInfo = true
         Alamofire.request(.GET, requestUrl).responseJSON { response in
                 if response.response?.statusCode == 200 {
-                    if let json = response.result.value {
-                        let moviesData = JSON(json)["movies"]
-                        for (_, subJson): (String, JSON) in moviesData {
-                            let movie = Movie()
-                            
-                            //TODO change implementation here, not use variable, put them in constructor
-                            movie.title = subJson["title"].stringValue
-                            movie.runtime = subJson["runtime"].stringValue
-                            
-                            let ratings = subJson["ratings"]
-                            movie.audienceScore = ratings["audience_score"].stringValue
-                            movie.criticsScore = ratings["critics_rating"].stringValue
-                            
-                            let imageUrls = subJson["posters"]
-                            movie.lowResImageUrl = self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue)
-                            movie.highResImageUrl = self._originalImageUrl(imageUrls["original"].stringValue)
-                            
-                            Images.downloadThumbnailImage(movie.lowResImageUrl)
-                            
-                            self.movies.append(movie)
+                    
+                    
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                        var newMovieInfos: [Movie] = []
+                        
+                        if let json = response.result.value {
+                            let moviesData = JSON(json)["movies"]
+                            for (_, subJson): (String, JSON) in moviesData {
+                                let movie = Movie()
+                                
+                                //TODO change implementation here, not use variable, put them in constructor
+                                movie.title = subJson["title"].stringValue
+                                movie.runtime = subJson["runtime"].stringValue
+                                
+                                let ratings = subJson["ratings"]
+                                movie.audienceScore = ratings["audience_score"].stringValue
+                                movie.criticsScore = ratings["critics_rating"].stringValue
+                                
+                                let imageUrls = subJson["posters"]
+                                movie.lowResImageUrl = self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue)
+                                movie.highResImageUrl = self._originalImageUrl(imageUrls["original"].stringValue)
+                                
+                                newMovieInfos.append(movie)
+                            }
                         }
-                        self.collectionView.reloadData()
+                        
+                        let lastItem = self.movies.count
+                        self.movies.appendContentsOf(newMovieInfos)
+                        let indexPaths = (lastItem..<self.movies.count).map { NSIndexPath(forItem: $0, inSection: 0) }
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+                        }
                     }
                 }
                 else {
                     Helper.sendAlert("Oops", message: "Sorry, we cannot connect to Rotten Tomatoes!")
                 }
+            self.downloadingMovieInfo = false
         }
         
     }
@@ -91,9 +115,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     //TODO ?? not working!
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
+//      if scrollView.contentOffset.y + collectionView.frame.size.height > scrollView.contentSize.height * 0.8 {
             self._getMoviesInfoFromRottenTomatoes()
-        }
+//    }
     }
     
     /*
