@@ -34,7 +34,10 @@ Note: Please open `RottenTomatoes.xcworkspace`
 
 ## Gif walkthrough:
 
-![alt tag](https://github.com/pingzh/RottenTomatoes/commit/043df649cb0a2d628515ad5ed201a513a3ae7925)
+![alt tag](https://github.com/pingzh/RottenTomatoes/blob/master/RottenTomatoes/MobileTrainingAssignmentOne__Ping_Zhang.gif)
 
-
-GIF created with LiceCap.
+# Credits
+- [GIF created with LiceCap] (http://www.cockos.com/licecap/)
+- [Alamofire] (https://github.com/Alamofire/Alamofire)
+- [SwiftyJSON] (https://github.com/SwiftyJSON/SwiftyJSON)
+- [CocoaPods] (https://github.com/CocoaPods/CocoaPods)
