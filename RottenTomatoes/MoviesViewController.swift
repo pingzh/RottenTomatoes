@@ -71,6 +71,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedMovie = movies[indexPath.row]
         print(selectedMovie.title)
+        self.performSegueWithIdentifier("MoviesToMovieDetail", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "MoviesToMovieDetail" {
+            let movieDetailView = segue.destinationViewController as! MovieDetailViewController
+            movieDetailView.selectedMovie = selectedMovie
+        }
     }
     
     // MARK: UICollectionViewDelegate
@@ -153,7 +161,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                                     title: subJson["title"].stringValue,
                                     runtime: subJson["runtime"].stringValue,
                                     audienceScore: ratings["audience_score"].stringValue,
-                                    criticsScore: ratings["critics_rating"].stringValue,
+                                    criticsScore: ratings["critics_score"].stringValue,
                                     year: subJson["year"].stringValue,
                                     thumbnail: self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue),
                                     original: self._originalImageUrl(imageUrls["original"].stringValue)

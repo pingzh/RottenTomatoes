@@ -33,6 +33,7 @@
 		ECD5F92A1BDB0B4200180183 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD5F9291BDB0B4200180183 /* Images.swift */; };
 		ECD5F92D1BDB0DA400180183 /* BoxOffice.json in Sources */ = {isa = PBXBuildFile; fileRef = ECD5F92C1BDB0DA400180183 /* BoxOffice.json */; };
 		ECEDF9B51BDB18DD005BA4C5 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDF9B41BDB18DD005BA4C5 /* Helper.swift */; };
+		ECEDF9BF1BDC3887005BA4C5 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		ECD5F9291BDB0B4200180183 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		ECD5F92C1BDB0DA400180183 /* BoxOffice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BoxOffice.json; sourceTree = "<group>"; };
 		ECEDF9B41BDB18DD005BA4C5 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				ECD5F9221BDB009C00180183 /* MoviesViewController.swift */,
+				ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				ECEDF9B51BDB18DD005BA4C5 /* Helper.swift in Sources */,
 				ECD5F9231BDB009C00180183 /* MoviesViewController.swift in Sources */,
 				ECD5F92A1BDB0B4200180183 /* Images.swift in Sources */,
+				ECEDF9BF1BDC3887005BA4C5 /* MovieDetailViewController.swift in Sources */,
 				ECD5F9281BDB0AD400180183 /* Movie.swift in Sources */,
 				EC26BC0C1BDAF785007DA360 /* AppDelegate.swift in Sources */,
 				ECD5F92D1BDB0DA400180183 /* BoxOffice.json in Sources */,

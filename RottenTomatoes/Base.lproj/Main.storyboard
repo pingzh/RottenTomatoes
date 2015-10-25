@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--Rotten Tomatoes-->
+        <!--Movies-->
         <scene sceneID="bDx-vq-kkB">
             <objects>
                 <viewController id="Y8T-ZG-eqs" customClass="MoviesViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
@@ -79,21 +79,92 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Rotten Tomatoes" id="mKp-QB-5is"/>
+                    <navigationItem key="navigationItem" title="Movies" id="mKp-QB-5is"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="collectionView" destination="1xP-3T-1hJ" id="V6Y-K2-q84"/>
                         <outlet property="layout" destination="c03-mI-i2m" id="xbk-GA-D6A"/>
+                        <segue destination="hZ2-Mb-Mhi" kind="show" identifier="MoviesToMovieDetail" id="SxX-84-1pM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Po-V4-N6k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="544.5" y="715.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Movie Detail View Controller-->
+        <scene sceneID="6U7-1i-fVf">
+            <objects>
+                <viewController id="hZ2-Mb-Mhi" customClass="MovieDetailViewController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pU0-na-zet"/>
+                        <viewControllerLayoutGuide type="bottom" id="cSL-CI-kW4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Ze-Bx-tr6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Oo-5A-dxg">
+                                <rect key="frame" x="0.0" y="64" width="375" height="383"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ac-DO-koo">
+                                <rect key="frame" x="0.0" y="508" width="375" height="159"/>
+                            </scrollView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dum-1S-bH6">
+                                <rect key="frame" x="0.0" y="446" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tile and year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsu-N9-tky">
+                                        <rect key="frame" x="8" y="0.0" width="359" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Critics Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lME-Di-Djt">
+                                        <rect key="frame" x="8" y="35" width="88" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="90" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfl-RV-yBR">
+                                        <rect key="frame" x="104" y="35" width="25" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audience Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zG-rT-a7Q">
+                                        <rect key="frame" x="232" y="35" width="102" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="90" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJ6-Tv-9dF">
+                                        <rect key="frame" x="342" y="35" width="25" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kKx-AH-Cyp"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="audienceScore" destination="XJ6-Tv-9dF" id="num-bu-15s"/>
+                        <outlet property="criticsScore" destination="yfl-RV-yBR" id="Xsx-Cr-Azs"/>
+                        <outlet property="originalImage" destination="3Oo-5A-dxg" id="y4c-4F-roI"/>
+                        <outlet property="titleAndYearLabel" destination="nsu-N9-tky" id="FxV-MA-Vkh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EHh-nU-6Dv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="989.5" y="715.5"/>
+        </scene>
+        <!--MoviesNavigation-->
         <scene sceneID="Nx8-Cz-IK9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kYJ-bh-Rkc" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kYJ-bh-Rkc" userLabel="MoviesNavigation" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="W1u-e4-hSf">
@@ -109,8 +180,30 @@
             </objects>
             <point key="canvasLocation" x="144" y="716"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6eI-cS-3sg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KyF-Tn-cew" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CyK-G0-Gvu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DFz-PM-Ttq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hZ2-Mb-Mhi" kind="relationship" relationship="rootViewController" id="DdA-aY-lMz"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1026.5" y="15.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="1.jpg" width="1600" height="900"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="SxX-84-1pM"/>
+    </inferredMetricsTieBreakers>
 </document>
