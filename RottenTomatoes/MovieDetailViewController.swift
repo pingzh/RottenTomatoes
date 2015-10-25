@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class MovieDetailViewController: UIViewController {
+class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
     
     var selectedMovie: Movie!
     
@@ -17,6 +17,11 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var titleAndYearLabel: UILabel!
     @IBOutlet weak var criticsScore: UILabel!
     @IBOutlet weak var originalImage: UIImageView!
+    
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    //var scrollView = UIScrollView()
     
     let refreshControl = UIRefreshControl()
     var downloadingOriginalImage = false
@@ -29,19 +34,42 @@ class MovieDetailViewController: UIViewController {
         self.criticsScore.text = self.selectedMovie.criticsScore
         self.audienceScore.text = self.selectedMovie.audienceScore
         
-//        refreshControl.tintColor = UIColor.blueColor()
-//        refreshControl.addTarget(self, action: "_refreshView", forControlEvents: .ValueChanged)
-//        self.view.addSubview(refreshControl)
         
+        scrollView.contentSize = self.view.bounds.size
+        scrollView.delegate = self
+        scrollView.indicatorStyle = .Black
+
+
+        refreshControl.tintColor = UIColor.grayColor()
+        refreshControl.addTarget(self, action: "_refreshView", forControlEvents: .ValueChanged)
+        self.scrollView.addSubview(refreshControl)
+        
+        self.originalImage.image = Images.imageCache[selectedMovie.lowResImageUrl]
         self._downloadOriginalImage()
         
         
     }
     
+//    func scrollViewDidScroll(scrollView: UIScrollView){
+//        /* Gets called when user scrolls or drags */
+//        scrollView.alpha = 0.50
+//    }
+//    
+//    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
+//        /* Gets called only after scrolling */
+//        scrollView.alpha = 1
+//    }
+//    
+//    func scrollViewDidEndDragging(scrollView: UIScrollView,
+//        willDecelerate decelerate: Bool){
+//            scrollView.alpha = 1
+//    }
+//  
+    
+    
     func _refreshView() {
         refreshControl.beginRefreshing()
-        
-        self.originalImage.image = nil
+        self.originalImage.image = Images.imageCache[selectedMovie.lowResImageUrl]
         _downloadOriginalImage()
         refreshControl.endRefreshing()
     }
