@@ -23,6 +23,9 @@
                                     <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYP-ao-tTt">
                                         <rect key="frame" x="0.0" y="-3" width="375" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y8T-ZG-eqs" id="L3b-mN-yRd"/>
+                                        </connections>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,9 +49,9 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="jMT-sz-3He">
                                                     <rect key="frame" x="8" y="8" width="173" height="188"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9hJ-Bw-gMF">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hJ-Bw-gMF">
                                                     <rect key="frame" x="8" y="198" width="165" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -58,7 +61,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zia-yH-LV1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zia-yH-LV1" userLabel="Year">
                                                     <rect key="frame" x="133" y="221" width="40" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -69,7 +72,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="movieName" destination="9hJ-Bw-gMF" id="a6S-Oy-ARz"/>
-                                            <outlet property="movieRattings" destination="Zia-yH-LV1" id="6Ft-ka-0tT"/>
+                                            <outlet property="movieYear" destination="Zia-yH-LV1" id="nnV-FF-Onq"/>
                                             <outlet property="moviewImage" destination="jMT-sz-3He" id="Aik-Hr-RYr"/>
                                             <outlet property="moviewLength" destination="8Rt-Dk-bGV" id="wCj-6M-jxf"/>
                                         </connections>
@@ -84,6 +87,7 @@
                     <connections>
                         <outlet property="collectionView" destination="1xP-3T-1hJ" id="V6Y-K2-q84"/>
                         <outlet property="layout" destination="c03-mI-i2m" id="xbk-GA-D6A"/>
+                        <outlet property="searchMovie" destination="lYP-ao-tTt" id="iOm-C4-BUH"/>
                         <segue destination="hZ2-Mb-Mhi" kind="show" identifier="MoviesToMovieDetail" id="SxX-84-1pM"/>
                     </connections>
                 </viewController>
@@ -107,7 +111,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dum-1S-bH6">
-                                        <rect key="frame" x="0.0" y="448" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="448" width="375" height="56"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tile and year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nsu-N9-tky">
                                                 <rect key="frame" x="8" y="0.0" width="359" height="31"/>
@@ -115,7 +119,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Critics Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lME-Di-Djt">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Critics Score:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lME-Di-Djt">
                                                 <rect key="frame" x="8" y="35" width="88" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -127,8 +131,8 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audience Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zG-rT-a7Q">
-                                                <rect key="frame" x="232" y="35" width="102" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audience Score:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zG-rT-a7Q">
+                                                <rect key="frame" x="228" y="35" width="106" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -142,8 +146,15 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="D3T-XP-Kwb" userLabel="synopsis">
+                                        <rect key="frame" x="0.0" y="505" width="375" height="162"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Oo-5A-dxg">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                                        <rect key="frame" x="0.0" y="8" width="375" height="432"/>
                                     </imageView>
                                 </subviews>
                             </scrollView>
@@ -157,6 +168,7 @@
                         <outlet property="criticsScore" destination="yfl-RV-yBR" id="Xsx-Cr-Azs"/>
                         <outlet property="originalImage" destination="3Oo-5A-dxg" id="y4c-4F-roI"/>
                         <outlet property="scrollView" destination="9Ac-DO-koo" id="jsi-FA-953"/>
+                        <outlet property="synopsisTextView" destination="D3T-XP-Kwb" id="1iF-kn-e58"/>
                         <outlet property="titleAndYearLabel" destination="nsu-N9-tky" id="FxV-MA-Vkh"/>
                     </connections>
                 </viewController>
@@ -167,7 +179,7 @@
         <!--MoviesNavigation-->
         <scene sceneID="Nx8-Cz-IK9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kYJ-bh-Rkc" userLabel="MoviesNavigation" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kYJ-bh-Rkc" userLabel="MoviesNavigation" customClass="NavigationController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="W1u-e4-hSf">
@@ -187,7 +199,7 @@
         <scene sceneID="6eI-cS-3sg">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KyF-Tn-cew" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CyK-G0-Gvu" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CyK-G0-Gvu" customClass="NavigationController" customModule="RottenTomatoes" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DFz-PM-Ttq">

@@ -11,20 +11,17 @@ import Alamofire
 
 class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
     
-    var selectedMovie: Movie!
-    
     @IBOutlet weak var audienceScore: UILabel!
     @IBOutlet weak var titleAndYearLabel: UILabel!
     @IBOutlet weak var criticsScore: UILabel!
     @IBOutlet weak var originalImage: UIImageView!
-    
-    
+    @IBOutlet weak var synopsisTextView: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    //var scrollView = UIScrollView()
     
     let refreshControl = UIRefreshControl()
     var downloadingOriginalImage = false
+    var selectedMovie: Movie!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +30,14 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
         self.titleAndYearLabel.text = self.selectedMovie.title + " (" + selectedMovie.year + " )"
         self.criticsScore.text = self.selectedMovie.criticsScore
         self.audienceScore.text = self.selectedMovie.audienceScore
+        self.synopsisTextView.text = self.selectedMovie.synopsis
         
-        
+        //set scrollView && Zoom scale
         scrollView.contentSize = self.view.bounds.size
         scrollView.delegate = self
         scrollView.indicatorStyle = .Black
-
+        scrollView.minimumZoomScale = 0.25
+        scrollView.maximumZoomScale = 2
 
         refreshControl.tintColor = UIColor.grayColor()
         refreshControl.addTarget(self, action: "_refreshView", forControlEvents: .ValueChanged)
@@ -46,26 +45,12 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
         
         self.originalImage.image = Images.imageCache[selectedMovie.lowResImageUrl]
         self._downloadOriginalImage()
-        
-        
     }
     
-//    func scrollViewDidScroll(scrollView: UIScrollView){
-//        /* Gets called when user scrolls or drags */
-//        scrollView.alpha = 0.50
-//    }
-//    
-//    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
-//        /* Gets called only after scrolling */
-//        scrollView.alpha = 1
-//    }
-//    
-//    func scrollViewDidEndDragging(scrollView: UIScrollView,
-//        willDecelerate decelerate: Bool){
-//            scrollView.alpha = 1
-//    }
-//  
-    
+    //zoom
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.originalImage
+    }
     
     func _refreshView() {
         refreshControl.beginRefreshing()
@@ -84,13 +69,12 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
             return
         }
         
-        
         downloadingOriginalImage = true
         
-        let progressIndicatorView = UIProgressView(frame: CGRect(x: 0.0, y: 80, width: self.view.bounds.width, height: 10.0))
+        let progressIndicatorView = UIProgressView(frame: CGRect(x: 0.0, y: 68, width: self.view.bounds.width, height: 10.0))
         progressIndicatorView.tintColor = UIColor.blueColor()
         self.view.addSubview(progressIndicatorView)
-        progressIndicatorView.setProgress(0.2, animated: true)
+        progressIndicatorView.setProgress(0.1, animated: true)
         
         Alamofire.request(.GET, requestUrl)
             .progress { (_, totalBytesRead, totalBytesExpectedToRead) in
@@ -107,15 +91,7 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
                 if response?.statusCode == 200 {
                     let image = UIImage(data: data!)!
                     Images.imageCache[requestUrl] = image
-                    
                     self.originalImage.image = image
-                    //                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                    //
-                    //                                dispatch_async(dispatch_get_main_queue()) {
-                    //                                    progressIndicatorView.removeFromSuperview()
-                    //                                }
-                    //                            }
-                    //                        }
                 }
                 else {
                     progressIndicatorView.setProgress(0.8, animated: true)
@@ -125,13 +101,10 @@ class MovieDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     /*
     // MARK: - Navigation

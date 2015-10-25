@@ -20,12 +20,15 @@ class Movie {
     var lowResImageUrl: String!
     var highResImageUrl: String!
     
-    init(title: String, runtime: String, audienceScore: String, criticsScore: String, year: String, thumbnail: String, original: String) {
+    var synopsis: String!
+    
+    init(title: String, runtime: String, audienceScore: String, criticsScore: String, year: String, synopsis: String, thumbnail: String, original: String) {
         self.title = title
         self.runtime = runtime
         self.audienceScore = audienceScore
         self.criticsScore = criticsScore
         self.year = year
+        self.synopsis = synopsis
         self.lowResImageUrl = thumbnail
         self.highResImageUrl = original
     }

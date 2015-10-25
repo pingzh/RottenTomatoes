@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
     
+    @IBOutlet weak var searchMovie: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var layout : UICollectionViewFlowLayout!
     let refreshControl = UIRefreshControl()
@@ -33,9 +34,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cellWidth = _calcCellWidth(self.view.frame.size)
         layout.itemSize = CGSizeMake(cellWidth, cellHeight)
         
-        refreshControl.tintColor = UIColor.blueColor()
+        refreshControl.tintColor = UIColor.grayColor()
         refreshControl.addTarget(self, action: "_refreshView", forControlEvents: .ValueChanged)
         collectionView!.addSubview(refreshControl)
+        
+        searchMovie.text = nil
         
         _getMoviesInfoFromRottenTomatoes()
     }
@@ -62,15 +65,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.moviewImage.image = nil
         Images.downloadThumbnailImage(movie.lowResImageUrl, uiImageView: cell.moviewImage)
         cell.movieName.text = movie.title
-        cell.moviewLength.text = movie.runtime
-        cell.movieRattings.text = movie.audienceScore
+        cell.moviewLength.text = movie.runtime + " min"
+        cell.movieYear.text = movie.year
         
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedMovie = movies[indexPath.row]
-        print(selectedMovie.title)
         self.performSegueWithIdentifier("MoviesToMovieDetail", sender: self)
     }
     
@@ -81,38 +83,16 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
-    // MARK: UICollectionViewDelegate
-    
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        searchMovie.text = nil
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MoviesCollectionViewCell
+        cell.setCellSelected(true, uiImageView: cell.moviewImage)
     }
-    */
-    
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-    }
-    */
-    
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-    
 
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MoviesCollectionViewCell
+        cell.setCellSelected(false, uiImageView: cell.moviewImage)
+    }
     
     func _calcCellWidth(size: CGSize) -> CGFloat {
         let transitionToWide = size.width > size.height
@@ -163,6 +143,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                                     audienceScore: ratings["audience_score"].stringValue,
                                     criticsScore: ratings["critics_score"].stringValue,
                                     year: subJson["year"].stringValue,
+                                    synopsis: subJson["synopsis"].stringValue,
                                     thumbnail: self._thumbnailImageUrl(imageUrls["thumbnail"].stringValue),
                                     original: self._originalImageUrl(imageUrls["original"].stringValue)
                                 )
@@ -195,6 +176,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func _refreshView() {
+        searchMovie.text = nil
         refreshControl.beginRefreshing()
         movies = []
         collectionView!.reloadData()
@@ -204,5 +186,10 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func _thumbnailImageUrl(imageUrl: String) -> String {
         return imageUrl
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        //searchActive = false;
+        self.searchMovie.endEditing(true)
     }
 }

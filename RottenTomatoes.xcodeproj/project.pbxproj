@@ -34,6 +34,8 @@
 		ECD5F92D1BDB0DA400180183 /* BoxOffice.json in Sources */ = {isa = PBXBuildFile; fileRef = ECD5F92C1BDB0DA400180183 /* BoxOffice.json */; };
 		ECEDF9B51BDB18DD005BA4C5 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDF9B41BDB18DD005BA4C5 /* Helper.swift */; };
 		ECEDF9BF1BDC3887005BA4C5 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */; };
+		ECEDF9C21BDD34DB005BA4C5 /* groupon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ECEDF9C11BDD34DB005BA4C5 /* groupon.jpeg */; };
+		ECEDF9C41BDD3C07005BA4C5 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEDF9C31BDD3C07005BA4C5 /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		ECD5F92C1BDB0DA400180183 /* BoxOffice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BoxOffice.json; sourceTree = "<group>"; };
 		ECEDF9B41BDB18DD005BA4C5 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		ECEDF9C11BDD34DB005BA4C5 /* groupon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = groupon.jpeg; sourceTree = "<group>"; };
+		ECEDF9C31BDD3C07005BA4C5 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,7 @@
 			children = (
 				EC26BC0F1BDAF785007DA360 /* Main.storyboard */,
 				EC26BC0B1BDAF785007DA360 /* AppDelegate.swift */,
+				ECEDF9C01BDD34BC005BA4C5 /* images */,
 				ECD5F92B1BDB0D8200180183 /* CachedRottenTomatoesData */,
 				ECD5F9261BDB0AC100180183 /* Models */,
 				ECD5F9071BDAFC0800180183 /* TestImages */,
@@ -188,6 +193,7 @@
 			children = (
 				ECD5F9221BDB009C00180183 /* MoviesViewController.swift */,
 				ECEDF9BE1BDC3887005BA4C5 /* MovieDetailViewController.swift */,
+				ECEDF9C31BDD3C07005BA4C5 /* NavigationViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -243,6 +249,14 @@
 				ECD5F92C1BDB0DA400180183 /* BoxOffice.json */,
 			);
 			name = CachedRottenTomatoesData;
+			sourceTree = "<group>";
+		};
+		ECEDF9C01BDD34BC005BA4C5 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				ECEDF9C11BDD34DB005BA4C5 /* groupon.jpeg */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 		F2622E9D0B48875301C4B1CA /* Pods */ = {
@@ -371,6 +385,7 @@
 				ECD5F9161BDAFC2400180183 /* 2.jpg in Resources */,
 				ECD5F91B1BDAFC2400180183 /* 7.jpg in Resources */,
 				ECD5F9191BDAFC2400180183 /* 5.jpg in Resources */,
+				ECEDF9C21BDD34DB005BA4C5 /* groupon.jpeg in Resources */,
 				ECD5F9201BDAFC2400180183 /* 12.jpg in Resources */,
 				EC26BC111BDAF785007DA360 /* Main.storyboard in Resources */,
 				ECD5F9181BDAFC2400180183 /* 4.jpg in Resources */,
@@ -452,6 +467,7 @@
 				ECD5F9251BDB015000180183 /* MoviesCollectionViewCell.swift in Sources */,
 				ECEDF9B51BDB18DD005BA4C5 /* Helper.swift in Sources */,
 				ECD5F9231BDB009C00180183 /* MoviesViewController.swift in Sources */,
+				ECEDF9C41BDD3C07005BA4C5 /* NavigationViewController.swift in Sources */,
 				ECD5F92A1BDB0B4200180183 /* Images.swift in Sources */,
 				ECEDF9BF1BDC3887005BA4C5 /* MovieDetailViewController.swift in Sources */,
 				ECD5F9281BDB0AD400180183 /* Movie.swift in Sources */,
